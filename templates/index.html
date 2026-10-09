@@ -7,10 +7,19 @@
 </head>
 <body>
 <main><header><div><small>PYMEDESK</small><h1>Gestión de pedidos</h1><p>Consulta y actualiza el estado de los pedidos.</p></div><span id="count"></span></header>
+<div id="message" class="alert" role="alert" hidden></div>
 <section><div class="scroll"><table><thead><tr><th>ID</th><th>Cliente</th><th>Total</th><th>Estado</th><th>Acción</th></tr></thead><tbody id="orders"><tr><td colspan="5">Cargando pedidos…</td></tr></tbody></table></div></section></main>
 <script>
 const body = document.querySelector("#orders");
 const count = document.querySelector("#count");
+const message = document.querySelector("#message");
+let messageTimer;
+function showError(text) {
+  message.textContent = text; message.hidden = false;
+  clearTimeout(messageTimer);
+  messageTimer = setTimeout(hideError, 5000);
+}
+function hideError() { clearTimeout(messageTimer); message.hidden = true; message.textContent = ""; }
 const money = new Intl.NumberFormat("es-CO", {style:"currency",currency:"COP",maximumFractionDigits:0});
 async function loadOrders() {
   try {
@@ -31,7 +40,8 @@ async function loadOrders() {
       const action = document.createElement("td");
       const button = document.createElement("button");
       button.textContent = "Marcar como enviado";
-      button.disabled = order.status === "enviado";
+      button.disabled = order.status !== "pendiente";
+      if (order.status === "cancelado") button.title = "Un pedido cancelado no se puede enviar.";
       button.onclick = () => ship(order.id, button);
       action.append(button); row.append(action); body.append(row);
     }
@@ -41,11 +51,17 @@ async function loadOrders() {
 }
 async function ship(id, button) {
   button.disabled = true;
+  hideError();
   try {
     const response = await fetch(`/api/orders/${id}/ship`, {method:"POST"});
-    if (!response.ok) throw new Error();
+    if (!response.ok) {
+      const data = await response.json().catch(() => ({}));
+      throw new Error(data.error || "No se pudo actualizar el pedido.");
+    }
     await loadOrders();
-  } catch {
+  } catch (error) {
+    const text = error instanceof TypeError ? "No hay conexión con el servidor. Inténtalo de nuevo." : error.message;
+    showError(`Pedido #${id}: ${text}`);
     button.disabled = false;
   }
 }

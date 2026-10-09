@@ -1,0 +1,160 @@
+<mxfile host="drawio-mcp" type="device">
+  <diagram id="d7c79dff79a34454820c" name="Casos de uso">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="Pymedesk · Gestión de pedidos — Casos de uso" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=22;fontStyle=1;" parent="1" vertex="1">
+          <mxGeometry x="0" y="0" width="1780" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="L1" value="CU1 · Cliente llama para confirmar el envío de un pedido pendiente (camino feliz)" style="swimlane;whiteSpace=wrap;html=1;startSize=30;container=1;collapsible=0;recursiveResize=0;fillColor=#ddf5e7;strokeColor=#17633b;fontStyle=1;fontSize=14;align=left;spacingLeft=10;" parent="1" vertex="1">
+          <mxGeometry x="0" y="60" width="1780" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="c1_a" value="Cliente&lt;br&gt;(Laura, #1)" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" parent="L1" vertex="1">
+          <mxGeometry x="40" y="70" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="c1_1" value="Llama: «¿Ya enviaron&lt;br&gt;mi pedido #1?»" style="rounded=1;whiteSpace=wrap;html=1;" parent="L1" vertex="1">
+          <mxGeometry x="130" y="80" width="170" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="c1_2" value="Operador busca #1&lt;br&gt;en la tabla&lt;br&gt;Estado: pendiente" style="rounded=1;whiteSpace=wrap;html=1;" parent="L1" vertex="1">
+          <mxGeometry x="340" y="80" width="170" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="c1_3" value="Pulsa «Marcar&lt;br&gt;como enviado»" style="rounded=1;whiteSpace=wrap;html=1;" parent="L1" vertex="1">
+          <mxGeometry x="550" y="80" width="170" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="c1_4" value="Servidor:&lt;br&gt;¿status = pendiente?" style="rhombus;whiteSpace=wrap;html=1;" parent="L1" vertex="1">
+          <mxGeometry x="760" y="70" width="180" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="c1_5" value="UPDATE → enviado&lt;br&gt;Responde 200" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ddf5e7;strokeColor=#17633b;" parent="L1" vertex="1">
+          <mxGeometry x="980" y="80" width="170" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="c1_6" value="Tabla se recarga:&lt;br&gt;badge «Enviado»,&lt;br&gt;botón desactivado" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ddf5e7;strokeColor=#17633b;" parent="L1" vertex="1">
+          <mxGeometry x="1190" y="80" width="170" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="c1_7" value="Operador confirma&lt;br&gt;al cliente que su&lt;br&gt;pedido salió" style="rounded=1;whiteSpace=wrap;html=1;" parent="L1" vertex="1">
+          <mxGeometry x="1400" y="80" width="170" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="L2" value="CU2 · Cliente pide enviar un pedido cancelado (regla de negocio: cancelado ≠ enviado)" style="swimlane;whiteSpace=wrap;html=1;startSize=30;container=1;collapsible=0;recursiveResize=0;fillColor=#fce4e4;strokeColor=#923636;fontStyle=1;fontSize=14;align=left;spacingLeft=10;" parent="1" vertex="1">
+          <mxGeometry x="0" y="300" width="1780" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="c2_a" value="Cliente&lt;br&gt;(Camila, #3)" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" parent="L2" vertex="1">
+          <mxGeometry x="40" y="70" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="c2_1" value="Llama: «Envíen mi&lt;br&gt;pedido #3, por favor»" style="rounded=1;whiteSpace=wrap;html=1;" parent="L2" vertex="1">
+          <mxGeometry x="130" y="80" width="170" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="c2_2" value="Operador busca #3&lt;br&gt;Estado: cancelado" style="rounded=1;whiteSpace=wrap;html=1;" parent="L2" vertex="1">
+          <mxGeometry x="340" y="80" width="170" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="c2_3" value="Interfaz:&lt;br&gt;¿pedido pendiente?" style="rhombus;whiteSpace=wrap;html=1;" parent="L2" vertex="1">
+          <mxGeometry x="550" y="70" width="170" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="c2_4" value="Botón desactivado&lt;br&gt;Tooltip: «Un pedido cancelado&lt;br&gt;no se puede enviar»" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#68788d;" parent="L2" vertex="1">
+          <mxGeometry x="760" y="80" width="190" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="c2_5" value="Intento forzado&lt;br&gt;(consola / API)&lt;br&gt;POST /api/orders/3/ship" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;" parent="L2" vertex="1">
+          <mxGeometry x="990" y="80" width="180" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="c2_6" value="Servidor rechaza&lt;br&gt;409 «El pedido está&lt;br&gt;cancelado…»" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fce4e4;strokeColor=#923636;" parent="L2" vertex="1">
+          <mxGeometry x="1210" y="80" width="170" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="c2_7" value="Alerta roja 5 s&lt;br&gt;Estado sigue «cancelado»&lt;br&gt;Operador sugiere&lt;br&gt;un pedido nuevo" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fce4e4;strokeColor=#923636;" parent="L2" vertex="1">
+          <mxGeometry x="1420" y="75" width="190" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="L3" value="CU3 · El cliente llama dos veces y dos operadores atienden el mismo pedido (concurrencia)" style="swimlane;whiteSpace=wrap;html=1;startSize=30;container=1;collapsible=0;recursiveResize=0;fillColor=#fff1ce;strokeColor=#815b0c;fontStyle=1;fontSize=14;align=left;spacingLeft=10;" parent="1" vertex="1">
+          <mxGeometry x="0" y="540" width="1780" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="c3_a" value="Cliente&lt;br&gt;(Sofía, #4)" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" parent="L3" vertex="1">
+          <mxGeometry x="40" y="70" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="c3_1" value="Llama dos veces;&lt;br&gt;la atienden los&lt;br&gt;operadores A y B" style="rounded=1;whiteSpace=wrap;html=1;" parent="L3" vertex="1">
+          <mxGeometry x="130" y="80" width="170" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="c3_2" value="Operador A marca&lt;br&gt;#4 como enviado&lt;br&gt;→ 200 OK" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ddf5e7;strokeColor=#17633b;" parent="L3" vertex="1">
+          <mxGeometry x="340" y="80" width="170" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="c3_3" value="Operador B, con la&lt;br&gt;pantalla sin recargar,&lt;br&gt;ve #4 «pendiente» y pulsa" style="rounded=1;whiteSpace=wrap;html=1;" parent="L3" vertex="1">
+          <mxGeometry x="550" y="80" width="180" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="c3_4" value="Servidor (UPDATE …&lt;br&gt;AND status='pendiente')&lt;br&gt;¿cambió 1 fila?" style="rhombus;whiteSpace=wrap;html=1;" parent="L3" vertex="1">
+          <mxGeometry x="770" y="65" width="200" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="c3_5" value="0 filas → 409&lt;br&gt;«El pedido ya&lt;br&gt;está enviado»" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fce4e4;strokeColor=#923636;" parent="L3" vertex="1">
+          <mxGeometry x="1010" y="80" width="170" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="c3_6" value="Alerta roja en B&lt;br&gt;«Pedido #4: …»&lt;br&gt;se oculta a los 5 s" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fce4e4;strokeColor=#923636;" parent="L3" vertex="1">
+          <mxGeometry x="1220" y="80" width="170" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="c3_7" value="Sin doble envío.&lt;br&gt;B recarga y confirma&lt;br&gt;al cliente" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ddf5e7;strokeColor=#17633b;" parent="L3" vertex="1">
+          <mxGeometry x="1430" y="80" width="170" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="note" value="Otros fallos: si el servidor no responde, la alerta dice «No hay conexión con el servidor. Inténtalo de nuevo.» — Toda alerta se oculta sola a los 5 s o al hacer un nuevo intento." style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;size=15;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="0" y="780" width="900" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="c1-a-to-c1-1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" parent="1" edge="1" source="c1_a" target="c1_1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c1-1-to-c1-2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" parent="1" edge="1" source="c1_1" target="c1_2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c1-2-to-c1-3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" parent="1" edge="1" source="c1_2" target="c1_3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c1-3-to-c1-4" value="POST /ship" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" parent="1" edge="1" source="c1_3" target="c1_4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c1-4-to-c1-5" value="Sí" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" parent="1" edge="1" source="c1_4" target="c1_5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c1-5-to-c1-6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" parent="1" edge="1" source="c1_5" target="c1_6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c1-6-to-c1-7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" parent="1" edge="1" source="c1_6" target="c1_7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c2-a-to-c2-1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" parent="1" edge="1" source="c2_a" target="c2_1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c2-1-to-c2-2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" parent="1" edge="1" source="c2_1" target="c2_2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c2-2-to-c2-3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" parent="1" edge="1" source="c2_2" target="c2_3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c2-3-to-c2-4" value="No" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" parent="1" edge="1" source="c2_3" target="c2_4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c2-4-to-c2-5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;endArrow=block;endFill=1;" parent="1" edge="1" source="c2_4" target="c2_5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c2-5-to-c2-6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" parent="1" edge="1" source="c2_5" target="c2_6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c2-6-to-c2-7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" parent="1" edge="1" source="c2_6" target="c2_7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c3-a-to-c3-1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" parent="1" edge="1" source="c3_a" target="c3_1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c3-1-to-c3-2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" parent="1" edge="1" source="c3_1" target="c3_2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c3-2-to-c3-3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" parent="1" edge="1" source="c3_2" target="c3_3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c3-3-to-c3-4" value="POST /ship" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" parent="1" edge="1" source="c3_3" target="c3_4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c3-4-to-c3-5" value="No" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" parent="1" edge="1" source="c3_4" target="c3_5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c3-5-to-c3-6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" parent="1" edge="1" source="c3_5" target="c3_6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c3-6-to-c3-7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" parent="1" edge="1" source="c3_6" target="c3_7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
